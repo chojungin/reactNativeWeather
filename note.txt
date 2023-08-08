@@ -1,0 +1,166 @@
+
+-----------------------------------------------------------------------------------
+◎Installing Requirements
+
+1. Expo CLI 설치 (terminal)
+    npm install --global expo-cli
+
+2. MacOS일 경우, Watchman 설치 (terminal)
+    brew update
+    brew install watchman
+
+3. Expo CLI 설치 후 application 설치
+    ios는 'Expo Go'
+    android는 'Expo'
+
+===> 이제 이 환경으로 작업한 react native code를 application에서 확인할 수 있다! 
+-----------------------------------------------------------------------------------
+◎Creating The App
+
+1. expo init AppName
+    >> terminal에서 생성하고자 하는 폴더 위치에 앱 이름과 함께 실행!
+    >> choose a template : blank ... 템플릿 선택!
+
+2. npm start
+    >> 에러 없이 잘 실행되는지 확인!
+    >> ctrl+c 로 exit
+
+3. expo login
+    >> Username chojungin
+    >> Password whslsl753^^
+    >> Success. You are now logged in as chojungin. 확인!
+
+4. npm run start
+    >> terminal log에 QR code가 나오고 Using Expo Go 안내를 확인!
+    >> 동일 계정으로 login한 application을 Open
+    >> Open up App.js to start working on your app! 텍스트를 확인할 수 있다!
+
+※ Snack
+    https://snack.expo.dev/ 
+    -브라우저에서 VSCode나 node.js 없이, iPad에서 코딩을 가능하게 해준다.
+-----------------------------------------------------------------------------------
+◎React Native 01
+
+-View는 Container로 Web의 div는 사용할 수 없다.
+-Web의 모든 style property를 사용할 수 없다.
+
+-React Native에서 style을 사용하는 두가지 방법
+
+    1. Object를 생성하여 분리하는 방법
+    ※StyleSheet.create()를 사용하지 않아도 되지만 자동완성 기능을 제공한다.
+
+    <View style={styles.container}></View>
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: '#fff',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
+    });
+
+    2. Tag의 style에 직접 입력하는 방법
+    ※이 또한 자동완성 기능을 제공한다.
+
+    <Text style={{ fontSize : 48 }}>Hello?</Text>
+
+※ React Native 
+    https://reactnative.dev/docs/getting-started
+    -StatusBar는 Component이며 화면에 Rendering된다.
+    -Vibration과 같은 기능은 API로 구분된다.
+    -방대한 Component/APIs를 React Native팀이 모두 관리하고 업데이트 할 수 없기 때문에,
+    서비스 제공을 축소하게 되었고 그렇게 축소/제외된 Component/APIs 중 하나인 Navigation이나 
+    AsyncStorage(비동기저장소)는 Community Package에서 찾아 사용할 수 있다. 
+
+※ React Native Directory
+    https://reactnative.directory/
+    -Community Package로 유저들이 업로드한 third-party Package와 APIs가 있다.
+    -버그가 발견되면 해결될때까지 기다리거나 직접 해야한다는 단점이 있다.
+
+※ Expo SDK 
+    https://docs.expo.dev/
+    -Expo팀이 자체적으로 Package와 APIs를 제작한 것으로 안정적인 지원을 한다는 장점이 있다.
+    -터미널에 install 명령어 입력 후 import하여 사용할 수 있다. 
+-----------------------------------------------------------------------------------
+◎React Native 02
+
+-Web의 경우 Flex Direction의 기본 값은 row이고 display 속성을 사용할 수 있었지만 Mobile은 이를 지원하지 않는다. 
+Mobile 환경에서는 flex를 사용하며 Flex Direction의 기본 값은 column이다.
+    <View style={{ flex: 1, flexDirection: "row"}}>
+
+-React Native app에서는 너비와 높이에 기반하여 레이아웃을 만들지 않는다.
+    <View style={{ flex: 1, flexDirection: "row"}}>
+      <View style={{flex: 1, backgroundColor: "tomato"}}></View>
+      <View style={{flex: 3, backgroundColor: "teal"}}></View> //비율
+      <View style={{flex: 1, backgroundColor: "orange"}}></View>
+    </View>
+-----------------------------------------------------------------------------------
+◎React Native 03
+
+› Press s │ switch to development build
+› Press a │ open Android
+› Press w │ open web
+› Press j │ open debugger
+› Press r │ reload app
+› Press m │ toggle menu
+› Press o │ open project code in your editor
+› Press ? │ show all commands
+※ Press m : device의 'dev menu'에서 'view Element inspector'로 컴포넌트의 속성을 확인할 수 있다.
+
+※React Hook : 함수 컴포넌트에서 React state와 생명주기 기능을 연동(hook into) 할 수 있게 해주는 함수
+    -State Hooks (상태 후크)
+        useState	    상태 유지 및 변경
+        useReducer	    상태 유지 및 변경 (Redux)
+
+    -Context Hooks (컨텍스트 후크)
+        useContext	    정보 공유
+
+    -Effect Hooks (효과 후크) 
+        useEffect	        이벤트 처리
+        useLayoutEffect     브라우저가 화면을 다시 그리기 전에 실행
+        useInsertionEffect  리액트가 DOM을 변경하기 전에 실행
+
+    -Performance Hooks (성능 후크)
+        useMemo	            데이터, 값 캐시
+        useCallback	        콜백 함수 캐시
+        useTransition       렌더링의 우선순위, 상태 전환을 비차단으로 표시하고 다른 업데이트가 중단하도록 허용
+        useDeferredValue    렌더링의 우선순위, UI의 중요하지 않은 부분 업데이트를 연기하고 다른 부분이 먼저 업데이트
+
+    -Ref Hooks (참조 후크) *내장 브라우저 API와 같은 비 React 시스템으로 작업해야 할 때 유용
+        useRef
+        useImperativeHandle
+
+    -Other Hooks (기타 후크) *라이브러리 작성자에게 유용, 일반적으로 사용되지 않음
+        useDebugValue
+        useId
+        useSyncExternalStore
+
+-ScrollView
+    ContentContainerStyle를 사용한다.
+    flex가 불필요하다.
+    props
+        -horizontal : 가로 스크롤
+        -pagingEnabled : 스티키한 페이징
+        -showsHorizontalScrollIndicator : 가로 스크롤바 {boolean}
+※ Props를 가져올 때, Support Only iOS 또는 Android에 유의한다.
+
+-Dimensions : 화면의 사이즈를 가져온다. 사이즈 변경에 대비해야한다.
+    Dimensions.get('window') : 현재 앱에서 사용할 수 있는 영역의 사이즈를 가져온다.
+    Dimensions.get('screen') : 전체 화면의 사이즈를 가져온다.
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+
+-useWindowDimensions : 화면의 사이즈를 가져온다.
+    사이즈 변경 시 자동으로 가져오지만, 전체 화면의 사이즈를 가져오진 못한다.
+    const {height, width} = useWindowDimensions();
+
+-Location : Expo의 API (npx expo install expo-location)
+    Location.getCurrentPositionAsync : 사용자의 현재 위치 일회성 전달 요청
+    Location.reverseGeocodeAsync : 위치를 우편 주소로 역 지오코딩
+
+※ parseFloat(12.345).toFixed(1) : 소숫점 1자리 까지만 가지게 한다.
+
+-Icons (import Ionicons from '@expo/vector-icons/Ionicons';)
+    https://icons.expo.fyi/Index
+    
